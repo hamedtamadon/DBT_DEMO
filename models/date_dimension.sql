@@ -3,12 +3,9 @@ with CTE as
 select to_timestamp(starttime) as STARTED_AT ,
 DATE( to_timestamp(starttime)) as DATE_STARTED_AT,
 HOUR( to_timestamp(starttime)) as HOUR_STARTED_AT,
-case when DAYNAME(to_timestamp(starttime)) in ('Sat','Sun') 
-        then 'WEEKEND' else 'BUISINESS_DAY' END as DAY_TYPE,
-case when Month(to_timestamp(starttime)) in (12,1,2) then 'WINTER'
-    when Month(to_timestamp(starttime)) in (3,4,5) then 'Spring'
-    when Month(to_timestamp(starttime)) in (5,6,7) then 'Summer'
-     else 'Autumn' end as STATION_OF_YEAR 
+    {{day_type('starttime')}}  as DAY_TYPE ,
+     {{get_season('starttime')}} as staion_Of_year,
+     {{function1('starttime')}} as pas_future
  from {{ source('demo', 'bike') }}
 )
 select * from CTE
