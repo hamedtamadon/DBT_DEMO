@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: demo
-    database: dmeo
+    database: demo
     schema: demo_schema
     tables:
       - name: bike
